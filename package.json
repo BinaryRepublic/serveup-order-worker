@@ -15,9 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "realm": "^2.2.4",
-    "uuid":"^3.2.1"
+    "uuid": "^3.2.1",
+    "socket.io": "^2.0.4"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
