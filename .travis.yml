@@ -5,10 +5,10 @@ sudo: required
 services:
   - docker
 git:
-    submodules: false
+  submodules: false
 before_install:
-    - sed -i 's/git@github.com:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
-    - git submodule update --init --recursive
+  - sed -i 's/git@github.com:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
+  - git submodule update --init --recursive
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
