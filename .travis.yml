@@ -1,26 +1,26 @@
-language: node_js
-node_js:
-  - "stable"
-sudo: required
-services:
-  - docker
-cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
-script:
-  - npm run test
-  - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest .
-  - docker run -d gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest
-  - docker ps -a
-# after_success:
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
-  # Add gcloud to $PATH
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud version
-  - gcloud --quiet components update
-  # Auth flow
-  - echo $GCLOUD_KEY | base64 --decode > gcloud.json
-  - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file gcloud.json
-  - ssh-keygen -f ~/.ssh/google_compute_engine -N ""
-  # Push to Google container registry
-  - gcloud docker -- push gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest
+# language: node_js
+# node_js:
+#   - "stable"
+# sudo: required
+# services:
+#   - docker
+# cache:
+#   directories:
+#     - "$HOME/google-cloud-sdk/"
+# script:
+#   - npm run test
+#   - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest .
+#   - docker run -d gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest
+#   - docker ps -a
+# # after_success:
+#   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
+#   # Add gcloud to $PATH
+#   - source /home/travis/google-cloud-sdk/path.bash.inc
+#   - gcloud version
+#   - gcloud --quiet components update
+#   # Auth flow
+#   - echo $GCLOUD_KEY | base64 --decode > gcloud.json
+#   - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file gcloud.json
+#   - ssh-keygen -f ~/.ssh/google_compute_engine -N ""
+#   # Push to Google container registry
+#   - gcloud docker -- push gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-api:latest
