@@ -1,0 +1,23 @@
+{
+  "name": "ro-order-worker",
+  "version": "1.0.0",
+  "description": "order-worker observes database for new orders",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restaurantorder/ro-order-worker.git"
+  },
+  "author": "Henrik Engelbrink",
+  "license": "ISC",
+  "dependencies": {
+    "realm": "^2.2.4",
+    "uuid":"^3.2.1"
+  },
+  "devDependencies": {
+
+  }
+}
