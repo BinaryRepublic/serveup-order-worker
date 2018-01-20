@@ -4,12 +4,12 @@ node_js:
 sudo: required
 services:
   - docker
-git:
-  submodules: false
-before_install:
-  - sed -i 's/https:\/\/github.com/restaurantorder:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
-  # - sed -i 's/git@github.com:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
-  - git submodule update --init --recursive
+# git:
+#   submodules: false
+# before_install:
+#   - sed -i 's/https:\/\/github.com/restaurantorder:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
+#   # - sed -i 's/git@github.com:/https:\/\/$GIT_USER:$GIT_TOKEN@github.com\//' .gitmodules
+#   - git submodule update --init --recursive
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
