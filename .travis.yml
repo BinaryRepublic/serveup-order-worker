@@ -12,6 +12,8 @@ services:
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
+notifications:
+  slack: restaurantorder:AUsr6kUXJTxFDT8oAHPKJw00
 script:
   - npm run test
   - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-worker:latest .
