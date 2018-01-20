@@ -1,3 +1,3 @@
 [submodule "ro-realm"]
 	path = ro-realm
-	url = https://github.com/restaurantorder/ro-realm.git
+	url = https://restaurantorder:$CODErocks2018@github.com/ro-realm.git
