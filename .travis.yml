@@ -13,13 +13,9 @@ notifications:
       - $SLACK_USER:$SLACK_TOKEN#devops
     on_success: always
     on_failure: always
-  slack: 
-    secure: 
-    on_success: always
-    on_failure: always
-branches:
-  only:
-  - master
+# branches:
+#   only:
+#   - master
 script:
   - npm run test
   - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-worker:latest .
