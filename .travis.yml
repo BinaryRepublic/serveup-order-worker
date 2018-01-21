@@ -4,11 +4,6 @@ node_js:
 sudo: required
 services:
   - docker
-# git:
-#   submodules: false
-# before_install:
-#   - sed -i 's/git@github.com:/https:\/\/restaurantorder:9c244dd2f244ec39fe72dd8e8b086ee9f43fd814@github.com\//' .gitmodules
-#   - git submodule update --init --recursive
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
@@ -22,15 +17,11 @@ script:
   - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-worker:latest .
   - docker run -d gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-worker:latest
   - docker ps -a
-# after_success:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
-  # Add gcloud to $PATH
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud version
   - gcloud --quiet components update
-  # Auth flow
   - echo $GCLOUD_KEY | base64 --decode > gcloud.json
   - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file gcloud.json
   - ssh-keygen -f ~/.ssh/google_compute_engine -N ""
-  # Push to Google container registry
   - gcloud docker -- push gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-worker:latest
