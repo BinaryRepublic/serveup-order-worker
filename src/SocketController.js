@@ -23,7 +23,7 @@ class SocketController {
 	}
 	emitNewOrder(order) {
 		var restaurantId = "abc123";//order.restaurantId;
-		var client = this.clientFromRestaurantId(restaurantId);
+		var client = this.clients.find(this.findClient.bind(null, restaurantId));
 		if(client) {
 			client.emit('neworder', JSON.stringify(order));
 		}
@@ -31,12 +31,9 @@ class SocketController {
 			console.error("emitNewOrder no client found for " + restaurantId);
 		}
 	}
-	clientFromRestaurantId(id) {
-		for(var i = 0; i < this.clients.length; i++) {
-			var clientObj = this.clients[i];
-			if(clientObj.restaurantId === id) {
-				return clientObj;
-			}
+	findClient(restaurantId, client) { 
+		if(client.restaurantId === restaurantId) {
+			return client;
 		}
 	}
 }
