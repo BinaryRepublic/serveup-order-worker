@@ -9,6 +9,8 @@ cache:
     - "$HOME/google-cloud-sdk/"
 notifications:
   slack: $SLACK_USER:$SLACK_TOKEN
+    on_success: always
+    on_failure: always
 branches:
   only:
   - master
