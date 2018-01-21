@@ -8,8 +8,13 @@ cache:
   directories:
     - "$HOME/google-cloud-sdk/"
 notifications:
+  slack:
+    rooms:
+      - $SLACK_USER:$SLACK_TOKEN#devops
+    on_success: always
+    on_failure: always
   slack: 
-    secure: $SLACK_USER:$SLACK_TOKEN
+    secure: 
     on_success: always
     on_failure: always
 branches:
