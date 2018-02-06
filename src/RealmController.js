@@ -4,7 +4,7 @@ const ParentRealmController = require("../ro-realm/ParentRealmController.js")
 class RealmController extends ParentRealmController {
 	constructor(setup) {
 		super();
-		this.createdCallback = setup;
+		this.realmCreated = setup;
 	}
 	setupListener(callback) {
 		this.realm.objects('Order').addListener((orders, changes) => {
