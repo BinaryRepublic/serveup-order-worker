@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "docker": "docker build -t ro/worker ."
+    "clean": "rm -rf DataRealm",
+    "docker": "docker build -t ro/worker .",
+    "sub": "git submodule update --remote"
   },
   "repository": {
     "type": "git",
