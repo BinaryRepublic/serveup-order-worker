@@ -22,7 +22,7 @@ class SocketController {
 		console.log("- " + this.clients.length + " clients connected")
 	}
 	emitNewOrder(order) {
-		var restaurantId = order.restaurant.id;
+		var restaurantId = order.restaurantId;
 		var client = this.clients.find(this.findClient.bind(null, restaurantId));
 		if(client) {
 			client.emit('neworder', JSON.stringify(order));
