@@ -1,6 +1,6 @@
 {
   "name": "ro-order-worker",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "order-worker observes database for new orders",
   "main": "app.js",
   "scripts": {
