@@ -1,10 +1,9 @@
 "use_strict"
-const ParentRealmController = require("../ro-realm/ParentRealmController.js")
+const ParentRealmController = require("../ro-realm/ParentRealmController.js");
 
 class RealmController extends ParentRealmController {
-	constructor(setup) {
+	constructor() {
 		super();
-		this.realmCreated = setup;
 	}
 	setupListener(callback) {
 	    console.log('setupListener');
