@@ -6,14 +6,7 @@ class SocketController {
 		this.clients = [];
 		this.socket = socketIO();
 		this.socket.on('connect', this.onConnect.bind(this));
-
-		let port = 9200; // dev port
-		if (process.env.STAGE) {
-			port = 9100;
-		} else if (process.env.PROD) {
-			port = 9000;
-		}
-		this.socket.listen(port);
+		this.socket.listen(9000);
 	}
 	onConnect(client) {
 		client.on("restaurantId", this.onRestaurantId.bind(this, client))
