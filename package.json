@@ -19,7 +19,8 @@
   "dependencies": {
     "realm": "^2.2.4",
     "uuid": "^3.2.1",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "axios": "^0.18.0"
   },
   "devDependencies": {
     "socket.io-client": "^2.0.4"

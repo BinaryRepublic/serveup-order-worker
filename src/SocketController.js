@@ -1,10 +1,32 @@
 "use_strict"
 const socketIO = require('socket.io');
+const AuthApiInterface = require('./AuthApiInterface');
 
 class SocketController {
 	constructor() {
-		this.clients = [];
-		this.socket = socketIO();
+        this.clients = [];
+        let authApi = new AuthApiInterface();
+        this.socket = socketIO();
+        this.socket.use((socket, next) => {
+            let token = socket.handshake.query.token;
+            if (token) {
+                authApi.access(token).then(resp => {
+                    next();
+                }).catch((err) => {
+                    let error = {
+                        type: 'ACCESS_TOKEN_INVALID',
+                        msg: 'Please send a valid access-token in the socket query'
+                    };
+                    next(new Error(JSON.stringify(error)));
+                });
+            } else {
+                let error = {
+                    type: 'NO_ACCESS_TOKEN',
+                    msg: 'Please send a valid access-token in the socket query'
+                };
+                next(new Error(JSON.stringify(error)));
+            }
+        });
 		this.socket.on('connect', this.onConnect.bind(this));
 		this.socket.listen(9000);
 	}
