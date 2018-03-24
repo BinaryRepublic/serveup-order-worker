@@ -17,11 +17,11 @@
   "author": "Henrik Engelbrink",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "eslint": "^4.19.1",
     "realm": "^2.2.4",
-    "uuid": "^3.2.1",
     "socket.io": "^2.0.4",
-    "axios": "^0.18.0"
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "eslint-config-standard": "^11.0.0",
