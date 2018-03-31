@@ -6,9 +6,7 @@ class RealmController extends ParentRealmController {
         super();
     }
     setupListener (callback) {
-        console.log('setupListener');
         this.realm.objects('Order').addListener((orders, changes) => {
-            console.log(changes);
             changes.insertions.forEach((index) => {
                 let newOrder = orders[index];
                 callback(newOrder);

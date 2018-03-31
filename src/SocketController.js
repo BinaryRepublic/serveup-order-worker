@@ -2,12 +2,14 @@
 const socketIO = require('socket.io');
 const AuthApiInterface = require('../ro-express-helper/library/AuthApiInterface');
 const Authorization = require('../ro-express-helper/middleware/Authorization');
+const Logger = require('../ro-express-helper/library/Logger');
 
 class SocketController {
     constructor () {
         this.clients = [];
         this.accountId = null;
         this.authorization = new Authorization();
+        this.logger = new Logger();
         // authentication middleware
         let authApi = new AuthApiInterface();
         this.socket = socketIO();
@@ -22,7 +24,7 @@ class SocketController {
                         type: 'ACCESS_TOKEN_INVALID',
                         msg: 'Please send a valid access-token in the socket query'
                     };
-                    console.log(error)
+                    this.logger.error(400, 'SOCKET', 'CONNECT', error);
                     next(new Error(JSON.stringify(error)));
                 });
             } else {
@@ -30,7 +32,7 @@ class SocketController {
                     type: 'NO_ACCESS_TOKEN',
                     msg: 'Please send a valid access-token in the socket query'
                 };
-                console.log(error)
+                this.logger.error(400, 'SOCKET', 'CONNECT', error);
                 next(new Error(JSON.stringify(error)));
             }
         });
@@ -47,20 +49,19 @@ class SocketController {
         if (authorization && !authorization.error) {
             client.restaurantId = id;
             this.clients.push(client);
-            console.log('+ ' + this.clients.length + ' clients connected');
         } else {
-            console.log('client not authorized');
+            let error = {
+                type: 'NOT_AUTHORIZED',
+                msg: 'Credentials do not fit to restaurantId'
+            }
             client.emit('err', JSON.stringify({
-                error: {
-                    type: 'NOT_AUTHORIZED',
-                    msg: 'Credentials do not fit to restaurantId'
-                }
+                error: error
             }));
+            this.logger.error(401, 'SOCKET', 'CONNECT', error);
         }
     }
     onDisconnect (client, reason) {
         this.clients.pop(client);
-        console.log('- ' + this.clients.length + ' clients connected');
     }
     emitNewOrder (order) {
         var restaurantId = order.restaurantId;
@@ -68,7 +69,11 @@ class SocketController {
         if (client) {
             client.emit('neworder', JSON.stringify(order));
         } else {
-            console.error('emitNewOrder no client found for ' + restaurantId);
+            let error = {
+                type: 'RESTAURANT_NOT_FOUND',
+                msg: 'emitNewOrder no client found for ' + restaurantId
+            }
+            this.logger.error(500, 'SOCKET', 'neworder', error);
         }
     }
     findClient (restaurantId, client) {
