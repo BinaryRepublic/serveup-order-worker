@@ -1,7 +1,7 @@
 'use strict';
 const socketIO = require('socket.io');
-const AuthApiInterface = require('./AuthApiInterface');
-const Authorization = require('./Authorization');
+const AuthApiInterface = require('../ro-express-helper/library/AuthApiInterface');
+const Authorization = require('../ro-express-helper/middleware/Authorization');
 
 class SocketController {
     constructor () {
