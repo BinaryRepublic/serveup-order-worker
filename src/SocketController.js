@@ -53,7 +53,7 @@ class SocketController {
             let error = {
                 type: 'NOT_AUTHORIZED',
                 msg: 'Credentials do not fit to restaurantId'
-            }
+            };
             client.emit('err', JSON.stringify({
                 error: error
             }));
@@ -72,7 +72,7 @@ class SocketController {
             let error = {
                 type: 'RESTAURANT_NOT_FOUND',
                 msg: 'emitNewOrder no client found for ' + restaurantId
-            }
+            };
             this.logger.error(500, 'SOCKET', 'neworder', error);
         }
     }
