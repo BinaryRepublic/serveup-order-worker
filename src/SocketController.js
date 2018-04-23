@@ -40,11 +40,13 @@ class SocketController {
         this.socket.listen(9000);
     }
     onConnect (client) {
+        console.log('client connected');
         // authorization
         client.on('restaurantId', this.onRestaurantId.bind(this, client));
         client.on('disconnect', this.onDisconnect.bind(this, client));
     }
     onRestaurantId (client, id) {
+        console.log('client connected (restaurant-id: ' + id + ')');
         let authorization = this.authorization.request(this.accountId, 'Restaurant', id);
         if (authorization && !authorization.error) {
             client.restaurantId = id;
@@ -61,12 +63,15 @@ class SocketController {
         }
     }
     onDisconnect (client, reason) {
+        console.log('client disconnected');
         this.clients.pop(client);
     }
     emitNewOrder (order) {
         var restaurantId = order.restaurantId;
         var client = this.clients.find(this.findClient.bind(null, restaurantId));
         if (client) {
+            console.log('emit newOrder');
+            console.log(order);
             client.emit('neworder', JSON.stringify(order));
         } else {
             let error = {
